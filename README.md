@@ -31,6 +31,19 @@ environment variables:
    - `CATTLE_SECRET_KEY`
    - `CATTLE_URL`
 
+#### SSL Validation
+
+If you want to turn off SSL validation because you are using a self-signed certificate
+or a private CA-signed certificate, you can pass the environment variable:
+
+    - `SSL_VERIFY=false`
+
+You can also mount the SSL certificate chain into the container, and pass the path to the
+certificate as an environment variable:
+
+   - `-v /path/to/ca_chain.crt:/root/ca.crt`
+   - `-e SSL_VERIFY=/root/ca.crt`
+
 #### Rancher Agent Container
 
 If you run Gaucho in a container on Rancher, rather than set the environment

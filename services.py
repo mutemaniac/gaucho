@@ -12,18 +12,19 @@ HOST = "http://rancher.local:8080/v1"
 URL_SERVICE = "/services/"
 USERNAME = "userid"
 PASSWORD = "password"
+kwargs = {}
 
 # HTTP
 def get(url):
-   r = requests.get(url, auth=(USERNAME, PASSWORD))
+   r = requests.get(url, auth=(USERNAME, PASSWORD), **kwargs)
    r.raise_for_status()
    return r
 
 def post(url, data):
    if data:
-      r = requests.post(url, data=json.dumps(data), auth=(USERNAME, PASSWORD))
+      r = requests.post(url, data=json.dumps(data), auth=(USERNAME, PASSWORD), **kwargs)
    else:
-      r = requests.post(url, data="", auth=(USERNAME, PASSWORD))
+      r = requests.post(url, data="", auth=(USERNAME, PASSWORD), **kwargs)
    r.raise_for_status()
    return r.json()
 
@@ -381,6 +382,12 @@ if __name__ == '__main__':
 
    if 'RANCHER_URL' in os.environ:
       HOST = os.environ['RANCHER_URL']
+
+   if 'SSL_VERIFY' in os.environ:
+      if os.environ['SSL_VERIFY'].lower() == "false":
+        kwargs['verify'] = False
+      else:
+        kwargs['verify'] = os.environ['SSL_VERIFY']
 
    # make sure host ends with v1 if it is not contained in host
    if '/v1' not in HOST:
