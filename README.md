@@ -79,7 +79,7 @@ Options:
 Retrieves the ID of a service given its name.
 
 ```
- $ ./services.py cassandra
+ $ ./services.py id_of cassandra
 1s130
  $
 ```
@@ -210,7 +210,7 @@ Required Arguments:
 
 ## Dependencies
 
- - requests
- - baker
- - websocket-client
+ - requests==2.18.4 
+ - baker==1.3 
+ - websocket-client==0.44.0
 
