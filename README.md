@@ -84,16 +84,40 @@ Retrieves the ID of a service given its name.
  $
 ```
 
-### start_containers
+### start_service
 
 ```
-Usage: ./gaucho start_containers <service_id>
+Usage: ./gaucho start_service <service_id>
 
 Starts the containers of a given service, typically a Start Once service.
 
 Required Arguments:
 
   service_id   The ID of the service to start the containers of.
+```
+
+### stop_service
+
+```
+Usage: ./gaucho stop_service <service_id>
+
+Stop the containers of a given service.
+
+Required Arguments:
+
+  service_id   The ID of the service to stop the containers of.
+```
+
+### restart_service
+
+```
+Usage: ./gaucho restart_service <service_id>
+
+Restart the containers of a given service.
+
+Required Arguments:
+
+  service_id   The ID of the service to restart the containers of.
 ```
 
 ### upgrade

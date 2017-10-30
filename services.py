@@ -20,7 +20,7 @@ def get(url):
    r.raise_for_status()
    return r
 
-def post(url, data):
+def post(url, data=""):
    if data:
       r = requests.post(url, data=json.dumps(data), auth=(USERNAME, PASSWORD), **kwargs)
    else:
@@ -73,7 +73,7 @@ def id_of (name=""):
 # Start containers within a service (e.g. for Start Once containers).
 #
 @baker.command(params={"service_id": "The ID of the service to start the containers of."})
-def start_containers (service_id):
+def start_service (service_id):
    """Starts the containers of a given service, typically a Start Once service.
    """
 
@@ -83,6 +83,38 @@ def start_containers (service_id):
       start_url = container['actions']['start']
       print "Starting container %s with url %s" % (container['name'], start_url)
       post(start_url, "")
+
+
+#
+# Stop containers within a service.
+#
+@baker.command(params={"service_id": "The ID of the service to stop the containers of."})
+def stop_service (service_id):
+   """Stop the containers of a given service.
+   """
+
+   # Get the array of containers
+   containers = get(HOST + URL_SERVICE + service_id + "/instances").json()['data']
+   for container in containers:
+      stop_url = container['actions']['stop']
+      print "Stopping container %s with url %s" % (container['name'], stop_url)
+      post(stop_url, "")
+
+
+#
+# Restart containers within a service 
+#
+@baker.command(params={"service_id": "The ID of the service to restart the containers of."})
+def restart_service(service_id):
+  """Restart the containers of a given service. 
+  """
+
+  # Get the array of containers
+  containers = get(HOST + URL_SERVICE + service_id + "/instances").json()['data']
+  for container in containers:
+      restart_url = container['actions']['restart']
+      print "Restarting container: " + container['name']
+      post(restart_url)
 
 
 #
@@ -239,6 +271,8 @@ def execute(service_id,command):
   print "> \n%s" % ws(ws_url)
 
   print "DONE"
+
+
 
 #
 # Rollback the service.
