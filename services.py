@@ -67,7 +67,14 @@ def id_of (name=""):
    service = get(HOST + "/services?name=" + name).json()
    return service['data'][0]['id']
 
-
+#
+# Start containers within a service (e.g. for Start Once containers).
+#
+@baker.command(params={"service_id": "The ID of the service to start the containers of."})
+def start_containers (service_id):
+   """Starts the containers of a given service, typically a Start Once service.
+   """
+   start_service (service_id)
 
 #
 # Start containers within a service (e.g. for Start Once containers).
@@ -102,11 +109,11 @@ def stop_service (service_id):
 
 
 #
-# Restart containers within a service 
+# Restart containers within a service
 #
 @baker.command(params={"service_id": "The ID of the service to restart the containers of."})
 def restart_service(service_id):
-  """Restart the containers of a given service. 
+  """Restart the containers of a given service.
   """
 
   # Get the array of containers
@@ -428,4 +435,3 @@ if __name__ == '__main__':
       HOST = HOST + '/v1'
 
    baker.run()
-
