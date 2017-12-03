@@ -2,10 +2,12 @@ FROM python:2.7
 
 WORKDIR /app
 
-RUN   pip install requests
-RUN   pip install baker
-RUN   pip install websocket-client
+RUN pip install \
+        requests==2.18.4 \
+        baker==1.3 \
+        websocket-client==0.44.0
 
-ENTRYPOINT ["/app/gaucho"]
 COPY services.py /app/gaucho
 RUN chmod +x /app/gaucho
+
+ENTRYPOINT ["/app/gaucho"]
