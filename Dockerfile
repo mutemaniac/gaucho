@@ -10,4 +10,4 @@ RUN pip install \
 COPY services.py /app/gaucho
 RUN chmod +x /app/gaucho
 
-ENTRYPOINT ["/app/gaucho"]
+# ENTRYPOINT ["bash"]

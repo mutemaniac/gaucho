@@ -173,9 +173,9 @@ def upgrade(service_id, start_first=True, complete_previous=False, imageUuid=Non
          sleep_count += 1
 
    # can't upgrade a service if it's not in active state
-   if current_service_config['state'] != "active":
-      print "Service cannot be updated due to its current state: %s" % current_service_config['state']
-      sys.exit(1)
+   #if current_service_config['state'] != "active":
+   #   print "Service cannot be updated due to its current state: %s" % current_service_config['state']
+   #   sys.exit(1)
 
    # Stuff the current service launch config into the request for upgrade
    upgrade_strategy['inServiceStrategy']['launchConfig'] = current_service_config['launchConfig']
